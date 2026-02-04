@@ -1,15 +1,22 @@
-import React from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, StyleSheet, ScrollView, RefreshControl } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootTabParamList, Holding, MarketMover } from "../types";
+import {
+  RootTabParamList,
+  Holding,
+  MarketMover,
+  LoadingState as LoadingStateType,
+} from "../types";
 import { Colors } from "../constants/colors";
 import Header from "../components/Header";
 import PortfolioCard from "../components/PortfolioCard";
 import QuickActions from "../components/QuickActions";
 import HoldingsList from "../components/HoldingsList";
 import MarketMovers from "../components/MarketMovers";
+import LoadingState from "../components/LoadingState";
+import ErrorState from "../components/ErrorState";
 import { mockHomeData } from "../data/mockHomeData";
 
 type HomeScreenNavigationProp = NativeStackNavigationProp<RootTabParamList>;
@@ -17,6 +24,45 @@ type HomeScreenNavigationProp = NativeStackNavigationProp<RootTabParamList>;
 export default function HomeScreen() {
   const navigation = useNavigation<HomeScreenNavigationProp>();
 
+  // State Management
+  const [loadingState, setLoadingState] = useState<LoadingStateType>("loading");
+  const [refreshing, setRefreshing] = useState(false);
+
+  // Simulate initial data load
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  const loadData = async () => {
+    try {
+      setLoadingState("loading");
+
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
+      // Simulate 10% chance of error (for testing)
+      if (Math.random() < 0.1) {
+        throw new Error("Failed to fetch data");
+      }
+
+      setLoadingState("loaded");
+    } catch (error) {
+      console.error("Error loading data:", error);
+      setLoadingState("error");
+    }
+  };
+
+  const handleRetry = () => {
+    loadData();
+  };
+
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    await loadData();
+    setRefreshing(false);
+  };
+
+  // Navigation Handlers
   const handleNotificationPress = () => {
     navigation.navigate("Notifications");
   };
@@ -73,6 +119,28 @@ export default function HomeScreen() {
     // TODO: Navigate to CoinDetail screen in future
   };
 
+  // Render Loading State
+  if (loadingState === "loading") {
+    return (
+      <SafeAreaView style={styles.container} edges={["top"]}>
+        <LoadingState message="Loading your portfolio..." />
+      </SafeAreaView>
+    );
+  }
+
+  // Render Error State
+  if (loadingState === "error") {
+    return (
+      <SafeAreaView style={styles.container} edges={["top"]}>
+        <ErrorState
+          message="Unable to load your portfolio. Please check your connection and try again."
+          onRetry={handleRetry}
+        />
+      </SafeAreaView>
+    );
+  }
+
+  // Render Loaded State (Main Content)
   return (
     <SafeAreaView style={styles.container} edges={["top"]}>
       <Header
@@ -81,7 +149,18 @@ export default function HomeScreen() {
         onSettingsPress={handleSettingsPress}
       />
 
-      <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        style={styles.content}
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={handleRefresh}
+            tintColor={Colors.primary}
+            colors={[Colors.primary]}
+          />
+        }
+      >
         <PortfolioCard
           portfolio={mockHomeData.portfolio}
           onPress={handlePortfolioPress}
