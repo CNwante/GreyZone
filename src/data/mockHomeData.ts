@@ -128,6 +128,19 @@ export const mockHomeData: HomeScreenData = {
 };
 
 /**
+ * Mock data with negative change (for testing loss state)
+ */
+export const mockHomeDataNegative: HomeScreenData = {
+  ...mockHomeData,
+  portfolio: {
+    totalValue: 45678.9,
+    change24h: -2153.66,
+    changePercent24h: -4.51,
+    chartData: [50000, 49500, 48800, 47000, 46200, 45800, 45678],
+  },
+};
+
+/**
  * Mock data for empty portfolio state
  */
 export const mockEmptyData: HomeScreenData = {
