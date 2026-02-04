@@ -132,7 +132,7 @@ export const mockHomeData: HomeScreenData = {
  */
 export const mockEmptyData: HomeScreenData = {
   user: {
-    firstName: "David",
+    firstName: "Chuks",
     unreadNotifications: 0,
   },
   portfolio: {

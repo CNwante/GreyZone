@@ -116,3 +116,12 @@ export type HomeStackParamList = {
   CoinDetail: { coinId: string };
   AIInsightDetail: { insightId: string };
 };
+
+// ============================================================================
+// React Navigation Global Extension
+// ============================================================================
+declare global {
+  namespace ReactNavigation {
+    interface RootParamList extends RootTabParamList {}
+  }
+}
