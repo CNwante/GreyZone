@@ -10,6 +10,7 @@ const Stack = createNativeStackNavigator<HomeStackParamList>();
 export default function HomeStack() {
   return (
     <Stack.Navigator
+      initialRouteName="HomeMain"
       screenOptions={{
         headerStyle: {
           backgroundColor: Colors.background,
@@ -29,12 +30,14 @@ export default function HomeStack() {
         component={HomeScreen}
         options={{ headerShown: false }}
       />
+
       <Stack.Screen
         name="EmptyHome"
         component={EmptyHomeScreen}
         options={{ headerShown: false }}
       />
-      {/* TODO: Additional screens will be added in later:
+
+      {/* TODO: Additional screens will be added in later phases:
           - CoinDetail
           - AIInsightDetail
       */}
