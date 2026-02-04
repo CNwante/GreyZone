@@ -8,6 +8,7 @@ import { Colors } from "../constants/colors";
 import Header from "../components/Header";
 import PortfolioCard from "../components/PortfolioCard";
 import { mockHomeData } from "../data/mockHomeData";
+import QuickActions from "../components/QuickActions";
 
 type HomeScreenNavigationProp = NativeStackNavigationProp<RootTabParamList>;
 
@@ -27,6 +28,27 @@ export default function HomeScreen() {
     navigation.navigate("Portfolio");
   };
 
+  // Quick Actions Handlers
+  const handleSendPress = () => {
+    console.log("Send pressed");
+    // TODO: Navigate to Send screen in future
+  };
+
+  const handleReceivePress = () => {
+    console.log("Receive pressed");
+    // TODO: Navigate to Receive screen in future
+  };
+
+  const handleSwapPress = () => {
+    console.log("Swap pressed");
+    // TODO: Navigate to Swap screen in future
+  };
+
+  const handleBuyPress = () => {
+    console.log("Buy pressed");
+    // TODO: Navigate to Buy screen in future
+  };
+
   return (
     <SafeAreaView style={styles.container} edges={["top"]}>
       <Header
@@ -39,6 +61,13 @@ export default function HomeScreen() {
         <PortfolioCard
           portfolio={mockHomeData.portfolio}
           onPress={handlePortfolioPress}
+        />
+
+        <QuickActions
+          onSendPress={handleSendPress}
+          onReceivePress={handleReceivePress}
+          onSwapPress={handleSwapPress}
+          onBuyPress={handleBuyPress}
         />
 
         <View style={styles.placeholder}>
