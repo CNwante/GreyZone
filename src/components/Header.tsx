@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import { User } from "../types";
 import { Colors } from "../constants/colors";
 
@@ -36,7 +37,11 @@ export default function Header({
             pressed && styles.iconButtonPressed,
           ]}
         >
-          <Text style={styles.icon}>🔔</Text>
+          <Ionicons
+            name="notifications-outline"
+            size={24}
+            color={Colors.textPrimary}
+          />
           {user.unreadNotifications > 0 && (
             <View style={styles.badge}>
               <Text style={styles.badgeText}>
@@ -54,7 +59,11 @@ export default function Header({
             pressed && styles.iconButtonPressed,
           ]}
         >
-          <Text style={styles.icon}>⚙️</Text>
+          <Ionicons
+            name="settings-outline"
+            size={24}
+            color={Colors.textPrimary}
+          />
         </Pressable>
       </View>
     </View>

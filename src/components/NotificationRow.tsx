@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import { Notification } from "../types";
 import { Colors } from "../constants/colors";
 
@@ -25,7 +26,25 @@ export default function NotificationRow({
     return `${days}d ago`;
   };
 
-  const getNotificationStyle = () => {
+  const getNotificationIcon = () => {
+    switch (notification.type) {
+      case "ai_insight":
+        return { name: "sparkles" as const, color: Colors.primary };
+      case "price_alert":
+        return { name: "notifications" as const, color: Colors.warning };
+      case "transaction":
+        return { name: "checkmark-circle" as const, color: Colors.success };
+      case "news":
+        return { name: "newspaper" as const, color: Colors.primary };
+      default:
+        return {
+          name: "information-circle" as const,
+          color: Colors.textSecondary,
+        };
+    }
+  };
+
+  const getIconContainerStyle = () => {
     switch (notification.type) {
       case "ai_insight":
         return {
@@ -34,8 +53,8 @@ export default function NotificationRow({
         };
       case "price_alert":
         return {
-          backgroundColor: Colors.error + "15",
-          borderColor: Colors.error + "40",
+          backgroundColor: Colors.warning + "15",
+          borderColor: Colors.warning + "40",
         };
       case "transaction":
         return {
@@ -55,7 +74,8 @@ export default function NotificationRow({
     }
   };
 
-  const notificationStyle = getNotificationStyle();
+  const iconData = getNotificationIcon();
+  const iconContainerStyle = getIconContainerStyle();
 
   return (
     <Pressable
@@ -67,8 +87,8 @@ export default function NotificationRow({
       ]}
     >
       {/* Icon */}
-      <View style={[styles.iconContainer, notificationStyle]}>
-        <Text style={styles.icon}>{notification.icon}</Text>
+      <View style={[styles.iconContainer, iconContainerStyle]}>
+        <Ionicons name={iconData.name} size={24} color={iconData.color} />
       </View>
 
       {/* Content */}

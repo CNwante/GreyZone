@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "../constants/colors";
 
 interface SectionHeaderProps {
@@ -25,7 +26,7 @@ export default function SectionHeader({
           ]}
         >
           <Text style={styles.seeAllText}>See All</Text>
-          <Text style={styles.arrow}>↗️</Text>
+          <Ionicons name="arrow-forward" size={16} color={Colors.primary} />
         </Pressable>
       )}
     </View>
@@ -56,10 +57,6 @@ const styles = StyleSheet.create({
   seeAllText: {
     fontSize: 14,
     fontWeight: "500",
-    color: Colors.primary,
-  },
-  arrow: {
-    fontSize: 16,
     color: Colors.primary,
   },
 });

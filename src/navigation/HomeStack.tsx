@@ -8,9 +8,11 @@ import { Colors } from "../constants/colors";
 const Stack = createNativeStackNavigator<HomeStackParamList>();
 
 export default function HomeStack() {
+  const isNewUser = false;
+
   return (
     <Stack.Navigator
-      initialRouteName="HomeMain"
+      initialRouteName={isNewUser ? "EmptyHome" : "HomeMain"}
       screenOptions={{
         headerStyle: {
           backgroundColor: Colors.background,

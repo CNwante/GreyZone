@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "../constants/colors";
 import { AIInsight } from "../types";
 
@@ -36,7 +37,7 @@ export default function AIInsightCard({
         <View style={styles.container}>
           {/* AI Icon */}
           <View style={styles.iconContainer}>
-            <Text style={styles.icon}>🤖</Text>
+            <Ionicons name="bulb" size={24} color={Colors.primary} />
           </View>
 
           {/* Content */}

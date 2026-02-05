@@ -3,6 +3,7 @@ import { View, Text, Pressable, StyleSheet, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { Ionicons } from "@expo/vector-icons";
 import { RootTabParamList, MarketMover } from "../types";
 import { Colors } from "../constants/colors";
 import Header from "../components/Header";
@@ -59,8 +60,14 @@ export default function EmptyHomeScreen() {
         {/* Empty State Illustration */}
         <View style={styles.emptyStateContainer}>
           <View style={styles.illustrationContainer}>
-            <Text style={styles.illustration}>📊</Text>
-            <Text style={styles.illustrationAccent}>🪙</Text>
+            <Ionicons
+              name="pie-chart-outline"
+              size={80}
+              color={Colors.textSecondary}
+            />
+            <View style={styles.illustrationAccent}>
+              <Ionicons name="logo-bitcoin" size={40} color={Colors.primary} />
+            </View>
           </View>
 
           <Text style={styles.title}>No Portfolio Yet</Text>
@@ -77,7 +84,12 @@ export default function EmptyHomeScreen() {
               pressed && styles.primaryButtonPressed,
             ]}
           >
-            <Text style={styles.primaryButtonText}>🔗 Connect Wallet</Text>
+            <Ionicons
+              name="link-outline"
+              size={20}
+              color={Colors.textPrimary}
+            />
+            <Text style={styles.primaryButtonText}>Connect Wallet</Text>
           </Pressable>
 
           {/* Secondary Action Button */}
@@ -88,7 +100,12 @@ export default function EmptyHomeScreen() {
               pressed && styles.secondaryButtonPressed,
             ]}
           >
-            <Text style={styles.secondaryButtonText}>➕ Add Manually</Text>
+            <Ionicons
+              name="add-circle-outline"
+              size={20}
+              color={Colors.textPrimary}
+            />
+            <Text style={styles.secondaryButtonText}>Add Manually</Text>
           </Pressable>
         </View>
 
@@ -139,11 +156,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  illustration: {
-    fontSize: 80,
-  },
   illustrationAccent: {
-    fontSize: 40,
     position: "absolute",
     bottom: 0,
     right: 0,
@@ -168,13 +181,16 @@ const styles = StyleSheet.create({
 
   // Primary Button
   primaryButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 8,
     backgroundColor: Colors.primary,
     paddingHorizontal: 32,
     paddingVertical: 16,
     borderRadius: 12,
     width: "100%",
     maxWidth: 320,
-    alignItems: "center",
     marginBottom: 12,
   },
   primaryButtonPressed: {
@@ -189,13 +205,16 @@ const styles = StyleSheet.create({
 
   // Secondary Button
   secondaryButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 8,
     backgroundColor: Colors.backgroundCard,
     paddingHorizontal: 32,
     paddingVertical: 16,
     borderRadius: 12,
     width: "100%",
     maxWidth: 320,
-    alignItems: "center",
     borderWidth: 1,
     borderColor: Colors.border,
   },

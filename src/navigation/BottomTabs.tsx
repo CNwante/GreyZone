@@ -1,6 +1,6 @@
 import React from "react";
-import { Text } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Ionicons } from "@expo/vector-icons";
 import { RootTabParamList } from "../types";
 import HomeStack from "./HomeStack";
 import NotificationsScreen from "../screens/NotificationsScreen";
@@ -34,7 +34,13 @@ export default function BottomTabs() {
         name="Home"
         component={HomeStack}
         options={{
-          tabBarIcon: ({ focused }) => <TabIcon icon="🏠" focused={focused} />,
+          tabBarIcon: ({ focused, color, size }) => (
+            <Ionicons
+              name={focused ? "home" : "home-outline"}
+              size={size}
+              color={color}
+            />
+          ),
           tabBarLabel: "Home",
         }}
       />
@@ -42,7 +48,13 @@ export default function BottomTabs() {
         name="Portfolio"
         children={() => <PlaceholderScreen title="Portfolio" />}
         options={{
-          tabBarIcon: ({ focused }) => <TabIcon icon="📊" focused={focused} />,
+          tabBarIcon: ({ focused, color, size }) => (
+            <Ionicons
+              name={focused ? "pie-chart" : "pie-chart-outline"}
+              size={size}
+              color={color}
+            />
+          ),
           tabBarLabel: "Portfolio",
           headerShown: true,
           headerStyle: {
@@ -55,7 +67,13 @@ export default function BottomTabs() {
         name="AI"
         children={() => <PlaceholderScreen title="AI Insights" />}
         options={{
-          tabBarIcon: ({ focused }) => <TabIcon icon="🤖" focused={focused} />,
+          tabBarIcon: ({ focused, color, size }) => (
+            <Ionicons
+              name={focused ? "sparkles" : "sparkles-outline"}
+              size={size}
+              color={color}
+            />
+          ),
           tabBarLabel: "AI",
           headerShown: true,
           headerStyle: {
@@ -68,7 +86,13 @@ export default function BottomTabs() {
         name="Notifications"
         component={NotificationsScreen}
         options={{
-          tabBarIcon: ({ focused }) => <TabIcon icon="🔔" focused={focused} />,
+          tabBarIcon: ({ focused, color, size }) => (
+            <Ionicons
+              name={focused ? "notifications" : "notifications-outline"}
+              size={size}
+              color={color}
+            />
+          ),
           tabBarLabel: "Alerts",
           headerShown: true,
           headerStyle: {
@@ -82,7 +106,13 @@ export default function BottomTabs() {
         name="Profile"
         children={() => <PlaceholderScreen title="Profile" />}
         options={{
-          tabBarIcon: ({ focused }) => <TabIcon icon="👤" focused={focused} />,
+          tabBarIcon: ({ focused, color, size }) => (
+            <Ionicons
+              name={focused ? "person" : "person-outline"}
+              size={size}
+              color={color}
+            />
+          ),
           tabBarLabel: "Profile",
           headerShown: true,
           headerStyle: {
@@ -92,17 +122,5 @@ export default function BottomTabs() {
         }}
       />
     </Tab.Navigator>
-  );
-}
-
-// Sample emoji icon component for tabs
-interface TabIconProps {
-  icon: string;
-  focused: boolean;
-}
-
-function TabIcon({ icon, focused }: TabIconProps) {
-  return (
-    <Text style={{ fontSize: 24, opacity: focused ? 1 : 0.5 }}>{icon}</Text>
   );
 }

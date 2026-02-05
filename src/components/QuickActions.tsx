@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "../constants/colors";
 
 interface QuickActionsProps {
@@ -17,17 +18,29 @@ export default function QuickActions({
 }: QuickActionsProps) {
   return (
     <View style={styles.container}>
-      <ActionButton icon="📤" label="Send" onPress={onSendPress} />
-      <ActionButton icon="📥" label="Receive" onPress={onReceivePress} />
-      <ActionButton icon="🔄" label="Swap" onPress={onSwapPress} />
-      <ActionButton icon="💵" label="Buy" onPress={onBuyPress} />
+      <ActionButton
+        icon="arrow-up-outline"
+        label="Send"
+        onPress={onSendPress}
+      />
+      <ActionButton
+        icon="arrow-down-outline"
+        label="Receive"
+        onPress={onReceivePress}
+      />
+      <ActionButton
+        icon="swap-horizontal-outline"
+        label="Swap"
+        onPress={onSwapPress}
+      />
+      <ActionButton icon="card-outline" label="Buy" onPress={onBuyPress} />
     </View>
   );
 }
 
 // Individual Action Button Component
 interface ActionButtonProps {
-  icon: string;
+  icon: keyof typeof Ionicons.glyphMap;
   label: string;
   onPress: () => void;
 }
@@ -39,7 +52,7 @@ function ActionButton({ icon, label, onPress }: ActionButtonProps) {
       style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}
     >
       <View style={styles.iconContainer}>
-        <Text style={styles.icon}>{icon}</Text>
+        <Ionicons name={icon} size={24} color={Colors.primary} />
       </View>
       <Text style={styles.label}>{label}</Text>
     </Pressable>
