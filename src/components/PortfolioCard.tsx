@@ -64,14 +64,15 @@ export default function PortfolioCard({
   );
 }
 
-// Simple sparkline visualization using dots
+// Simple sparkline visualization using bars
 interface SparklinePlaceholderProps {
   data: number[];
   isPositive: boolean;
 }
 
 function SparklinePlaceholder({ data, isPositive }: SparklinePlaceholderProps) {
-  const color = isPositive ? Colors.success : Colors.error;
+  // Always use primary blue for sparkline per spec
+  const color = Colors.primary;
 
   // Normalize data to fit in container
   const min = Math.min(...data);
@@ -88,11 +89,11 @@ function SparklinePlaceholder({ data, isPositive }: SparklinePlaceholderProps) {
           <View
             key={index}
             style={[
-              styles.sparklineDot,
+              styles.sparklineBar,
               {
-                height: `${normalizedHeight}%`,
+                height: `${Math.max(normalizedHeight, 10)}%`, // Minimum 10% height
                 backgroundColor: color,
-                opacity: 0.3 + (normalizedHeight / 100) * 0.7, // Vary opacity
+                opacity: 0.4 + (normalizedHeight / 100) * 0.6, // Vary opacity (40-100%)
               },
             ]}
           />
@@ -159,9 +160,10 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     height: 60,
     gap: 2,
+    paddingHorizontal: 2,
   },
-  sparklineDot: {
-    flex: 1,
+  sparklineBar: {
+    width: 8,
     borderRadius: 2,
     minHeight: 4,
   },
