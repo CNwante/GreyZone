@@ -7,16 +7,19 @@ import {
   RootTabParamList,
   Holding,
   MarketMover,
+  AIInsight,
   LoadingState as LoadingStateType,
 } from "../types";
 import { Colors } from "../constants/colors";
 import Header from "../components/Header";
 import PortfolioCard from "../components/PortfolioCard";
 import QuickActions from "../components/QuickActions";
+import AIInsightsSection from "../components/AIInsightsSection";
 import HoldingsList from "../components/HoldingsList";
 import MarketMovers from "../components/MarketMovers";
 import LoadingState from "../components/LoadingState";
 import ErrorState from "../components/ErrorState";
+import EmptyHomeScreen from "./EmptyHomeScreen";
 import { mockHomeData } from "../data/mockHomeData";
 
 type HomeScreenNavigationProp = NativeStackNavigationProp<RootTabParamList>;
@@ -97,6 +100,17 @@ export default function HomeScreen() {
     // TODO: Navigate to Buy screen in future
   };
 
+  // AI Insights Handlers
+  const handleSeeAllInsights = () => {
+    console.log("See all AI insights pressed");
+    // TODO: Navigate to AI Insights screen in future
+  };
+
+  const handleInsightPress = (insight: AIInsight) => {
+    console.log("AI Insight pressed:", insight.prediction);
+    // TODO: Navigate to AI Insight Detail screen in future
+  };
+
   // Holdings Handlers
   const handleSeeAllHoldings = () => {
     navigation.navigate("Portfolio");
@@ -119,6 +133,9 @@ export default function HomeScreen() {
     // TODO: Navigate to CoinDetail screen in future
   };
 
+  // Check for empty portfolio state
+  const isEmptyPortfolio = mockHomeData.holdings.length === 0;
+
   // Render Loading State
   if (loadingState === "loading") {
     return (
@@ -138,6 +155,11 @@ export default function HomeScreen() {
         />
       </SafeAreaView>
     );
+  }
+
+  // Render Empty Portfolio State
+  if (isEmptyPortfolio) {
+    return <EmptyHomeScreen />;
   }
 
   // Render Loaded State (Main Content)
@@ -171,6 +193,14 @@ export default function HomeScreen() {
           onReceivePress={handleReceivePress}
           onSwapPress={handleSwapPress}
           onBuyPress={handleBuyPress}
+        />
+
+        {/* AI Insights Section */}
+        <AIInsightsSection
+          insights={mockHomeData.aiInsights}
+          onSeeAllPress={handleSeeAllInsights}
+          onInsightPress={handleInsightPress}
+          maxItems={2}
         />
 
         <HoldingsList
