@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { View, StyleSheet, ScrollView, RefreshControl } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
@@ -21,11 +21,13 @@ import LoadingState from "../components/LoadingState";
 import ErrorState from "../components/ErrorState";
 import EmptyHomeScreen from "./EmptyHomeScreen";
 import { mockHomeData } from "../data/mockHomeData";
+import { homeScrollEventEmitter } from "../navigation/BottomTabs";
 
 type HomeScreenNavigationProp = NativeStackNavigationProp<RootTabParamList>;
 
 export default function HomeScreen() {
   const navigation = useNavigation<HomeScreenNavigationProp>();
+  const scrollViewRef = useRef<ScrollView>(null);
 
   // State Management
   const [loadingState, setLoadingState] = useState<LoadingStateType>("loading");
@@ -34,6 +36,16 @@ export default function HomeScreen() {
   // Simulate initial data load
   useEffect(() => {
     loadData();
+  }, []);
+
+  // Listen for double-tap scroll-to-top event
+  useEffect(() => {
+    const unsubscribe = homeScrollEventEmitter.addListener(() => {
+      scrollViewRef.current?.scrollTo({ y: 0, animated: true });
+      handleRefresh();
+    });
+
+    return unsubscribe;
   }, []);
 
   const loadData = async () => {
@@ -172,6 +184,7 @@ export default function HomeScreen() {
       />
 
       <ScrollView
+        ref={scrollViewRef}
         style={styles.content}
         showsVerticalScrollIndicator={false}
         refreshControl={

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import { RootTabParamList } from "../types";
@@ -9,7 +9,34 @@ import { Colors } from "../constants/colors";
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 
+// Global event emitter for double-tap
+export const homeScrollEventEmitter = {
+  listeners: [] as (() => void)[],
+  emit() {
+    this.listeners.forEach((listener) => listener());
+  },
+  addListener(listener: () => void) {
+    this.listeners.push(listener);
+    return () => {
+      this.listeners = this.listeners.filter((l) => l !== listener);
+    };
+  },
+};
+
 export default function BottomTabs() {
+  const lastTapRef = useRef<number>(0);
+
+  const handleHomeTabPress = () => {
+    const now = Date.now();
+    const DOUBLE_TAP_DELAY = 300; // ms
+
+    if (now - lastTapRef.current < DOUBLE_TAP_DELAY) {
+      homeScrollEventEmitter.emit();
+    }
+
+    lastTapRef.current = now;
+  };
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -42,6 +69,11 @@ export default function BottomTabs() {
             />
           ),
           tabBarLabel: "Home",
+        }}
+        listeners={{
+          tabPress: () => {
+            handleHomeTabPress();
+          },
         }}
       />
       <Tab.Screen

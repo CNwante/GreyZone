@@ -8,24 +8,32 @@ interface HeaderProps {
   user: User;
   onNotificationPress: () => void;
   onSettingsPress: () => void;
+  onAvatarPress?: () => void;
 }
 
 export default function Header({
   user,
   onNotificationPress,
   onSettingsPress,
+  onAvatarPress,
 }: HeaderProps) {
   return (
     <View style={styles.container}>
-      {/* Left Section: Avatar + Greeting */}
-      <View style={styles.leftSection}>
+      {/* Left Section: Avatar + Greeting - NOW TAPPABLE */}
+      <Pressable
+        onPress={onAvatarPress || onSettingsPress}
+        style={({ pressed }) => [
+          styles.leftSection,
+          pressed && styles.leftSectionPressed,
+        ]}
+      >
         <View style={styles.avatar}>
           <Text style={styles.avatarText}>
             {user.firstName[0].toUpperCase()}
           </Text>
         </View>
         <Text style={styles.greeting}>Hi, {user.firstName}</Text>
-      </View>
+      </Pressable>
 
       {/* Right Section: Notification Bell + Settings */}
       <View style={styles.rightSection}>
@@ -85,6 +93,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 12,
+  },
+  leftSectionPressed: {
+    opacity: 0.6,
   },
   avatar: {
     width: 40,
