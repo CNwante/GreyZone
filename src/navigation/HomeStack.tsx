@@ -5,6 +5,7 @@ import HomeScreen from "../screens/HomeScreen";
 import EmptyHomeScreen from "../screens/EmptyHomeScreen";
 import CoinDetailScreen from "../screens/CoinDetailScreen";
 import MarketDiscoveryScreen from "../screens/MarketDiscoveryScreen";
+import NotificationsScreen from "../screens/NotificationsScreen";
 import { Colors } from "../constants/colors";
 
 const Stack = createNativeStackNavigator<HomeStackParamList>();
@@ -53,6 +54,14 @@ export default function HomeStack() {
         options={{
           headerShown: true,
           headerTitle: "Market",
+        }}
+      />
+
+      <Stack.Screen
+        name="Notifications"
+        component={NotificationsScreen}
+        options={{
+          headerShown: false,
         }}
       />
 

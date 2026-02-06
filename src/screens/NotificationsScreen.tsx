@@ -11,6 +11,8 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Swipeable } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Notification } from "../types";
 import { Colors } from "../constants/colors";
 import NotificationRow from "../components/NotificationRow";
@@ -20,6 +22,7 @@ import {
   mockNotifications,
   groupNotificationsByTime,
 } from "../data/mockNotifications";
+import { HomeStackParamList } from "../types";
 
 interface NotificationSection {
   title: string;
@@ -27,6 +30,8 @@ interface NotificationSection {
 }
 
 export default function NotificationsScreen() {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<HomeStackParamList>>();
   const [notifications, setNotifications] =
     useState<Notification[]>(mockNotifications);
 
@@ -65,6 +70,10 @@ export default function NotificationsScreen() {
     setNotifications((prevNotifications) =>
       prevNotifications.map((n) => ({ ...n, isRead: true }))
     );
+  };
+
+  const handleBackPress = () => {
+    navigation.goBack();
   };
 
   const renderRightActions = (notificationId: string) => {
@@ -112,8 +121,17 @@ export default function NotificationsScreen() {
 
   return (
     <SafeAreaView style={styles.container} edges={["top"]}>
-      {/* Custom Header with Mark All Read button */}
+      {/* Custom Header with Back button and Mark All Read button */}
       <View style={styles.header}>
+        <Pressable
+          onPress={handleBackPress}
+          style={({ pressed }) => [
+            styles.backButton,
+            pressed && styles.backButtonPressed,
+          ]}
+        >
+          <Ionicons name="arrow-back" size={24} color={Colors.textPrimary} />
+        </Pressable>
         <Text style={styles.headerTitle}>Notifications</Text>
         {hasUnreadNotifications && (
           <Pressable
@@ -126,6 +144,7 @@ export default function NotificationsScreen() {
             <Text style={styles.markAllText}>Mark All</Text>
           </Pressable>
         )}
+        {!hasUnreadNotifications && <View style={styles.placeholder} />}
       </View>
 
       <SectionList
@@ -161,6 +180,13 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     color: Colors.textPrimary,
   },
+  backButton: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+  },
+  backButtonPressed: {
+    opacity: 0.6,
+  },
   markAllButton: {
     paddingHorizontal: 12,
     paddingVertical: 6,
@@ -172,6 +198,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "600",
     color: Colors.primary,
+  },
+  placeholder: {
+    width: 24,
   },
   listContent: {
     paddingBottom: 16,

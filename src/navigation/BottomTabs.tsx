@@ -5,6 +5,7 @@ import { RootTabParamList } from "../types";
 import HomeStack from "./HomeStack";
 import PortfolioStack from "./PortfolioStack";
 import NotificationsScreen from "../screens/NotificationsScreen";
+import AlertsScreen from "../screens/AlertsScreen";
 import PlaceholderScreen from "../screens/PlaceholderScreen";
 import { Colors } from "../constants/colors";
 
@@ -118,7 +119,7 @@ export default function BottomTabs() {
       />
       <Tab.Screen
         name="Notifications"
-        component={NotificationsScreen}
+        component={AlertsScreen}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <Ionicons
@@ -129,11 +130,6 @@ export default function BottomTabs() {
           ),
           tabBarLabel: "Alerts",
           headerShown: false,
-          headerStyle: {
-            backgroundColor: Colors.background,
-          },
-          headerTintColor: Colors.textPrimary,
-          headerTitle: "Notifications",
         }}
       />
       <Tab.Screen
