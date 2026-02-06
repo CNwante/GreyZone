@@ -1,0 +1,148 @@
+import React, { useRef } from "react";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Ionicons } from "@expo/vector-icons";
+import { RootTabParamList } from "../types";
+import HomeStack from "./HomeStack";
+import PortfolioStack from "./PortfolioStack";
+import SettingsStack from "./SettingsStack";
+import AlertsScreen from "../screens/AlertsScreen";
+import AIPredictionsScreen from "../screens/AIPredictionsScreen";
+import { Colors } from "../constants/colors";
+
+const Tab = createBottomTabNavigator<RootTabParamList>();
+
+// Global event emitter for double-tap
+export const homeScrollEventEmitter = {
+  listeners: [] as (() => void)[],
+  emit() {
+    this.listeners.forEach((listener) => listener());
+  },
+  addListener(listener: () => void) {
+    this.listeners.push(listener);
+    return () => {
+      this.listeners = this.listeners.filter((l) => l !== listener);
+    };
+  },
+};
+
+export default function BottomTabs() {
+  const lastTapRef = useRef<number>(0);
+
+  const handleHomeTabPress = () => {
+    const now = Date.now();
+    const DOUBLE_TAP_DELAY = 300; // ms
+
+    if (now - lastTapRef.current < DOUBLE_TAP_DELAY) {
+      homeScrollEventEmitter.emit();
+    }
+
+    lastTapRef.current = now;
+  };
+
+  return (
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: Colors.primary,
+        tabBarInactiveTintColor: Colors.textSecondary,
+        tabBarStyle: {
+          backgroundColor: Colors.backgroundCard,
+          borderTopWidth: 1,
+          borderTopColor: Colors.border,
+          height: 60,
+          paddingBottom: 8,
+          paddingTop: 8,
+        },
+        tabBarLabelStyle: {
+          fontSize: 12,
+          fontWeight: "500",
+        },
+      }}
+    >
+      <Tab.Screen
+        name="Home"
+        component={HomeStack}
+        options={{
+          tabBarIcon: ({ focused, color, size }) => (
+            <Ionicons
+              name={focused ? "home" : "home-outline"}
+              size={size}
+              color={color}
+            />
+          ),
+          tabBarLabel: "Home",
+        }}
+        listeners={{
+          tabPress: () => {
+            handleHomeTabPress();
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Portfolio"
+        component={PortfolioStack}
+        options={{
+          tabBarIcon: ({ focused, color, size }) => (
+            <Ionicons
+              name={focused ? "pie-chart" : "pie-chart-outline"}
+              size={size}
+              color={color}
+            />
+          ),
+          tabBarLabel: "Portfolio",
+          headerShown: true,
+          headerTitle: "Portfolio",
+          headerStyle: {
+            backgroundColor: Colors.background,
+          },
+          headerTintColor: Colors.textPrimary,
+        }}
+      />
+      <Tab.Screen
+        name="AI"
+        component={AIPredictionsScreen}
+        options={{
+          tabBarIcon: ({ focused, color, size }) => (
+            <Ionicons
+              name={focused ? "sparkles" : "sparkles-outline"}
+              size={size}
+              color={color}
+            />
+          ),
+          tabBarLabel: "AI",
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="Notifications"
+        component={AlertsScreen}
+        options={{
+          tabBarIcon: ({ focused, color, size }) => (
+            <Ionicons
+              name={focused ? "notifications" : "notifications-outline"}
+              size={size}
+              color={color}
+            />
+          ),
+          tabBarLabel: "Alerts",
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={SettingsStack}
+        options={{
+          tabBarIcon: ({ focused, color, size }) => (
+            <Ionicons
+              name={focused ? "person" : "person-outline"}
+              size={size}
+              color={color}
+            />
+          ),
+          tabBarLabel: "Profile",
+          headerShown: false,
+        }}
+      />
+    </Tab.Navigator>
+  );
+}
