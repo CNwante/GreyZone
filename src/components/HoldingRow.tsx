@@ -1,11 +1,14 @@
 import React from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
-import { Holding } from "../types";
+import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Colors } from "../constants/colors";
+import { Holding, HomeStackParamList } from "../types";
 
 interface HoldingRowProps {
   holding: Holding;
-  onPress: (holding: Holding) => void;
+  onPress?: (holding: Holding) => void;
   showSeparator?: boolean;
 }
 
@@ -14,14 +17,26 @@ export default function HoldingRow({
   onPress,
   showSeparator = true,
 }: HoldingRowProps) {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<HomeStackParamList>>();
+
   const isPositive = holding.changePercent24h >= 0;
   const changeColor = isPositive ? Colors.success : Colors.error;
   const changePrefix = isPositive ? "+" : "";
 
+  const handlePress = () => {
+    if (onPress) {
+      onPress(holding);
+    } else {
+      // Default navigation to CoinDetail
+      navigation.navigate("CoinDetail", { coinId: holding.coinId });
+    }
+  };
+
   return (
     <>
       <Pressable
-        onPress={() => onPress(holding)}
+        onPress={handlePress}
         style={({ pressed }) => [
           styles.container,
           pressed && styles.containerPressed,

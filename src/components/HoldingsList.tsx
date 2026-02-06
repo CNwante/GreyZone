@@ -8,7 +8,7 @@ import HoldingRow from "./HoldingRow";
 interface HoldingsListProps {
   holdings: Holding[];
   onSeeAllPress: () => void;
-  onHoldingPress: (holding: Holding) => void;
+  onHoldingPress?: (holding: Holding) => void;
   maxItems?: number;
 }
 

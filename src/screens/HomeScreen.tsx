@@ -126,24 +126,17 @@ export default function HomeScreen() {
   // Holdings Handlers
   const handleSeeAllHoldings = () => {
     navigation.navigate("Portfolio");
-    console.log("See all holdings pressed");
   };
 
-  const handleHoldingPress = (holding: Holding) => {
-    console.log("Holding pressed:", holding.name);
-    // TODO: Navigate to CoinDetail screen in future
-  };
+  // Remove handleHoldingPress - let HoldingRow handle navigation
 
   // Market Movers Handlers
   const handleSeeAllMovers = () => {
     console.log("See all market movers pressed");
-    // TODO: Navigate to Market screen in future
+    // TODO: Navigate to COIN-001 (Market Discovery) in future
   };
 
-  const handleMoverPress = (mover: MarketMover) => {
-    console.log("Market mover pressed:", mover.name);
-    // TODO: Navigate to CoinDetail screen in future
-  };
+  // Remove handleMoverPress - let MarketMoverCard handle navigation
 
   // Check for empty portfolio state
   const isEmptyPortfolio = mockHomeData.holdings.length === 0;
@@ -219,14 +212,12 @@ export default function HomeScreen() {
         <HoldingsList
           holdings={mockHomeData.holdings}
           onSeeAllPress={handleSeeAllHoldings}
-          onHoldingPress={handleHoldingPress}
           maxItems={3}
         />
 
         <MarketMovers
           movers={mockHomeData.marketMovers}
           onSeeAllPress={handleSeeAllMovers}
-          onMoverPress={handleMoverPress}
         />
 
         {/* Bottom spacing */}

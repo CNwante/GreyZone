@@ -7,7 +7,7 @@ import MarketMoverCard from "./MarketMoverCard";
 interface MarketMoversProps {
   movers: MarketMover[];
   onSeeAllPress: () => void;
-  onMoverPress: (mover: MarketMover) => void;
+  onMoverPress?: (mover: MarketMover) => void;
 }
 
 export default function MarketMovers({

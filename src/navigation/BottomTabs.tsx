@@ -3,8 +3,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import { RootTabParamList } from "../types";
 import HomeStack from "./HomeStack";
+import PortfolioStack from "./PortfolioStack";
 import NotificationsScreen from "../screens/NotificationsScreen";
-import PortfolioScreen from "../screens/PortfolioScreen";
 import PlaceholderScreen from "../screens/PlaceholderScreen";
 import { Colors } from "../constants/colors";
 
@@ -79,7 +79,7 @@ export default function BottomTabs() {
       />
       <Tab.Screen
         name="Portfolio"
-        component={PortfolioScreen}
+        component={PortfolioStack}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <Ionicons
@@ -90,6 +90,7 @@ export default function BottomTabs() {
           ),
           tabBarLabel: "Portfolio",
           headerShown: true,
+          headerTitle: "Portfolio",
           headerStyle: {
             backgroundColor: Colors.background,
           },

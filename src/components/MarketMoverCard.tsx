@@ -1,24 +1,38 @@
 import React from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
-import { MarketMover } from "../types";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { MarketMover, HomeStackParamList } from "../types";
 import { Colors } from "../constants/colors";
 
 interface MarketMoverCardProps {
   mover: MarketMover;
-  onPress: (mover: MarketMover) => void;
+  onPress?: (mover: MarketMover) => void;
 }
 
 export default function MarketMoverCard({
   mover,
   onPress,
 }: MarketMoverCardProps) {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<HomeStackParamList>>();
+
   const isPositive = mover.changePercent24h >= 0;
   const changeColor = isPositive ? Colors.success : Colors.error;
   const changePrefix = isPositive ? "+" : "";
 
+  const handlePress = () => {
+    if (onPress) {
+      onPress(mover);
+    } else {
+      // Default navigation to CoinDetail
+      navigation.navigate("CoinDetail", { coinId: mover.coinId });
+    }
+  };
+
   return (
     <Pressable
-      onPress={() => onPress(mover)}
+      onPress={handlePress}
       style={({ pressed }) => [
         styles.container,
         pressed && styles.containerPressed,

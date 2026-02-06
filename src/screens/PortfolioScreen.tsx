@@ -11,6 +11,8 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LineChart, PieChart } from "react-native-chart-kit";
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Colors, ChartColors } from "../constants/colors";
 import {
   mockPortfolioData,
@@ -18,13 +20,15 @@ import {
 } from "../data/mockPortfolioData";
 import { mockHomeData } from "../data/mockHomeData";
 import HoldingRow from "../components/HoldingRow";
-import { Holding } from "../types";
+import { Holding, HomeStackParamList } from "../types";
 
 const screenWidth = Dimensions.get("window").width;
 
 type TimeRange = "1D" | "1W" | "1M" | "3M" | "1Y" | "ALL";
 
 export default function PortfolioScreen() {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<HomeStackParamList>>();
   const [selectedTimeRange, setSelectedTimeRange] = useState<TimeRange>("1W");
   const [refreshing, setRefreshing] = useState(false);
 
@@ -36,8 +40,7 @@ export default function PortfolioScreen() {
   };
 
   const handleHoldingPress = (holding: Holding) => {
-    console.log("Holding pressed:", holding.name);
-    // TODO: Navigate to COIN-003 (Coin Detail)
+    navigation.navigate("CoinDetail", { coinId: holding.coinId });
   };
 
   const handleAddHolding = () => {
@@ -63,7 +66,7 @@ export default function PortfolioScreen() {
   const isPositiveChange = mockPortfolioData.change24h >= 0;
 
   return (
-    <SafeAreaView style={styles.container} edges={["top"]}>
+    <SafeAreaView style={styles.container} edges={["bottom"]}>
       <ScrollView
         showsVerticalScrollIndicator={false}
         refreshControl={
