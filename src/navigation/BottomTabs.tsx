@@ -128,7 +128,7 @@ export default function BottomTabs() {
             />
           ),
           tabBarLabel: "Alerts",
-          headerShown: true,
+          headerShown: false,
           headerStyle: {
             backgroundColor: Colors.background,
           },
