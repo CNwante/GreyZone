@@ -3,10 +3,11 @@ import { View, StyleSheet, ScrollView, RefreshControl } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { CompositeNavigationProp } from "@react-navigation/native";
+import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import {
   RootTabParamList,
-  Holding,
-  MarketMover,
+  HomeStackParamList,
   AIInsight,
   LoadingState as LoadingStateType,
 } from "../types";
@@ -23,7 +24,10 @@ import EmptyHomeScreen from "./EmptyHomeScreen";
 import { mockHomeData } from "../data/mockHomeData";
 import { homeScrollEventEmitter } from "../navigation/BottomTabs";
 
-type HomeScreenNavigationProp = NativeStackNavigationProp<RootTabParamList>;
+type HomeScreenNavigationProp = CompositeNavigationProp<
+  NativeStackNavigationProp<HomeStackParamList>,
+  BottomTabNavigationProp<RootTabParamList>
+>;
 
 export default function HomeScreen() {
   const navigation = useNavigation<HomeScreenNavigationProp>();
@@ -132,8 +136,7 @@ export default function HomeScreen() {
 
   // Market Movers Handlers
   const handleSeeAllMovers = () => {
-    console.log("See all market movers pressed");
-    // TODO: Navigate to COIN-001 (Market Discovery) in future
+    navigation.navigate("MarketDiscovery");
   };
 
   // Remove handleMoverPress - let MarketMoverCard handle navigation

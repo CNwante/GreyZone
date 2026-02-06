@@ -114,6 +114,7 @@ export type HomeStackParamList = {
   HomeMain: undefined;
   EmptyHome: undefined;
   CoinDetail: { coinId: string };
+  MarketDiscovery: undefined;
   AIInsightDetail: { insightId: string };
 };
 
