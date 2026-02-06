@@ -118,8 +118,7 @@ export default function HomeScreen() {
 
   // AI Insights Handlers
   const handleSeeAllInsights = () => {
-    console.log("See all AI insights pressed");
-    // TODO: Navigate to AI Insights screen in future
+    navigation.navigate("AI");
   };
 
   const handleInsightPress = (insight: AIInsight) => {

@@ -4,8 +4,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { RootTabParamList } from "../types";
 import HomeStack from "./HomeStack";
 import PortfolioStack from "./PortfolioStack";
-import NotificationsScreen from "../screens/NotificationsScreen";
 import AlertsScreen from "../screens/AlertsScreen";
+import AIPredictionsScreen from "../screens/AIPredictionsScreen";
 import PlaceholderScreen from "../screens/PlaceholderScreen";
 import { Colors } from "../constants/colors";
 
@@ -100,7 +100,7 @@ export default function BottomTabs() {
       />
       <Tab.Screen
         name="AI"
-        children={() => <PlaceholderScreen title="AI Insights" />}
+        component={AIPredictionsScreen}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <Ionicons
@@ -110,11 +110,7 @@ export default function BottomTabs() {
             />
           ),
           tabBarLabel: "AI",
-          headerShown: true,
-          headerStyle: {
-            backgroundColor: Colors.background,
-          },
-          headerTintColor: Colors.textPrimary,
+          headerShown: false,
         }}
       />
       <Tab.Screen
