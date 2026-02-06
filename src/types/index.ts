@@ -122,6 +122,29 @@ export type HomeStackParamList = {
   ReceiveCrypto: undefined;
   SwapCrypto: undefined;
   BuyCrypto: undefined;
+  // Confirmation screens
+  SendConfirmation: {
+    asset: string;
+    amount: string;
+    address: string;
+    fee: string;
+  };
+  SwapConfirmation: {
+    fromAsset: string;
+    toAsset: string;
+    fromAmount: string;
+    toAmount: string;
+    rate: string;
+  };
+  // Result screens
+  TransactionSuccess: {
+    type: "send" | "receive" | "swap" | "buy";
+    details: any;
+  };
+  TransactionError: {
+    type: "send" | "receive" | "swap" | "buy";
+    error: string;
+  };
 };
 
 // ============================================================================

@@ -10,12 +10,19 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "../constants/colors";
 import { mockHomeData } from "../data/mockHomeData";
+import { HomeStackParamList } from "../types";
+
+type SendCryptoNavigationProp = NativeStackNavigationProp<
+  HomeStackParamList,
+  "SendCrypto"
+>;
 
 export default function SendCryptoScreen() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<SendCryptoNavigationProp>();
   const [selectedAsset, setSelectedAsset] = useState(mockHomeData.holdings[0]);
   const [recipientAddress, setRecipientAddress] = useState("");
   const [amount, setAmount] = useState("");
@@ -59,14 +66,13 @@ export default function SendCryptoScreen() {
       return;
     }
 
-    // TODO: Navigate to confirmation screen
-    Alert.alert(
-      "Preview Send",
-      `Send ${amount} ${selectedAsset.symbol} to ${recipientAddress.substring(
-        0,
-        10
-      )}...`
-    );
+    // Navigate to confirmation screen
+    navigation.navigate("SendConfirmation", {
+      asset: selectedAsset.symbol,
+      amount: amount,
+      address: recipientAddress,
+      fee: networkFee.toFixed(2),
+    });
   };
 
   return (

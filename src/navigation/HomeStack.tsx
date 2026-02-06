@@ -10,6 +10,10 @@ import SendCryptoScreen from "../screens/SendCryptoScreen";
 import ReceiveCryptoScreen from "../screens/ReceiveCryptoScreen";
 import SwapScreen from "../screens/SwapScreen";
 import BuyCryptoScreen from "../screens/BuyCryptoScreen";
+import SendConfirmationScreen from "../screens/SendConfirmationScreen";
+import SwapConfirmationScreen from "../screens/SwapConfirmationScreen";
+import TransactionSuccessScreen from "../screens/TransactionSuccessScreen";
+import TransactionErrorScreen from "../screens/TransactionErrorScreen";
 import { Colors } from "../constants/colors";
 
 const Stack = createNativeStackNavigator<HomeStackParamList>();
@@ -92,6 +96,38 @@ export default function HomeStack() {
         name="BuyCrypto"
         component={BuyCryptoScreen}
         options={{ headerShown: false }}
+      />
+
+      {/* Confirmation Screens */}
+      <Stack.Screen
+        name="SendConfirmation"
+        component={SendConfirmationScreen}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="SwapConfirmation"
+        component={SwapConfirmationScreen}
+        options={{ headerShown: false }}
+      />
+
+      {/* Result Screens */}
+      <Stack.Screen
+        name="TransactionSuccess"
+        component={TransactionSuccessScreen}
+        options={{
+          headerShown: false,
+          gestureEnabled: false, // Prevent swipe back
+        }}
+      />
+
+      <Stack.Screen
+        name="TransactionError"
+        component={TransactionErrorScreen}
+        options={{
+          headerShown: false,
+          gestureEnabled: false, // Prevent swipe back
+        }}
       />
 
       {/* TODO: Additional screens will be added in later phases:

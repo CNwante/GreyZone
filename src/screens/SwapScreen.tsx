@@ -10,12 +10,19 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "../constants/colors";
 import { mockHomeData } from "../data/mockHomeData";
+import { HomeStackParamList } from "../types";
+
+type SwapScreenNavigationProp = NativeStackNavigationProp<
+  HomeStackParamList,
+  "SwapCrypto"
+>;
 
 export default function SwapScreen() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<SwapScreenNavigationProp>();
   const [fromAsset, setFromAsset] = useState(mockHomeData.holdings[0]);
   const [toAsset, setToAsset] = useState(mockHomeData.holdings[1]);
   const [fromAmount, setFromAmount] = useState("");
@@ -67,10 +74,14 @@ export default function SwapScreen() {
       return;
     }
 
-    Alert.alert(
-      "Preview Swap",
-      `Swap ${fromAmount} ${fromAsset.symbol} for ${toAmount} ${toAsset.symbol}`
-    );
+    // Navigate to confirmation screen
+    navigation.navigate("SwapConfirmation", {
+      fromAsset: fromAsset.symbol,
+      toAsset: toAsset.symbol,
+      fromAmount: fromAmount,
+      toAmount: toAmount,
+      rate: `1 ${fromAsset.symbol} = ${exchangeRate} ${toAsset.symbol}`,
+    });
   };
 
   return (
