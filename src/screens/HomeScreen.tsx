@@ -87,8 +87,7 @@ export default function HomeScreen() {
   };
 
   const handleSettingsPress = () => {
-    // TODO: navigate to settings in future
-    console.log("Settings pressed");
+    navigation.navigate("Profile");
   };
 
   const handlePortfolioPress = () => {

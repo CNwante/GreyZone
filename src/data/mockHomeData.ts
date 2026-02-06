@@ -1,4 +1,5 @@
 import { HomeScreenData } from "../types";
+import { mockUserProfile } from "./mockUserData";
 
 /**
  * Mock data for Home Screen
@@ -6,7 +7,7 @@ import { HomeScreenData } from "../types";
  */
 export const mockHomeData: HomeScreenData = {
   user: {
-    firstName: "Chuks",
+    firstName: mockUserProfile.firstName,
     unreadNotifications: 3,
   },
 
@@ -145,7 +146,7 @@ export const mockHomeDataNegative: HomeScreenData = {
  */
 export const mockEmptyData: HomeScreenData = {
   user: {
-    firstName: "Chuks",
+    firstName: mockUserProfile.firstName,
     unreadNotifications: 0,
   },
   portfolio: {

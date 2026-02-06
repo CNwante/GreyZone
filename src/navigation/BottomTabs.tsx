@@ -6,7 +6,7 @@ import HomeStack from "./HomeStack";
 import PortfolioStack from "./PortfolioStack";
 import AlertsScreen from "../screens/AlertsScreen";
 import AIPredictionsScreen from "../screens/AIPredictionsScreen";
-import PlaceholderScreen from "../screens/PlaceholderScreen";
+import SettingsScreen from "../screens/SettingsScreen";
 import { Colors } from "../constants/colors";
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
@@ -130,7 +130,7 @@ export default function BottomTabs() {
       />
       <Tab.Screen
         name="Profile"
-        children={() => <PlaceholderScreen title="Profile" />}
+        component={SettingsScreen}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <Ionicons
@@ -140,11 +140,7 @@ export default function BottomTabs() {
             />
           ),
           tabBarLabel: "Profile",
-          headerShown: true,
-          headerStyle: {
-            backgroundColor: Colors.background,
-          },
-          headerTintColor: Colors.textPrimary,
+          headerShown: false,
         }}
       />
     </Tab.Navigator>
