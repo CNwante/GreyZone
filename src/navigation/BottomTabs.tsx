@@ -4,9 +4,9 @@ import { Ionicons } from "@expo/vector-icons";
 import { RootTabParamList } from "../types";
 import HomeStack from "./HomeStack";
 import PortfolioStack from "./PortfolioStack";
+import SettingsStack from "./SettingsStack";
 import AlertsScreen from "../screens/AlertsScreen";
 import AIPredictionsScreen from "../screens/AIPredictionsScreen";
-import SettingsScreen from "../screens/SettingsScreen";
 import { Colors } from "../constants/colors";
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
@@ -130,7 +130,7 @@ export default function BottomTabs() {
       />
       <Tab.Screen
         name="Profile"
-        component={SettingsScreen}
+        component={SettingsStack}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <Ionicons
