@@ -4,6 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { RootTabParamList } from "../types";
 import HomeStack from "./HomeStack";
 import NotificationsScreen from "../screens/NotificationsScreen";
+import PortfolioScreen from "../screens/PortfolioScreen";
 import PlaceholderScreen from "../screens/PlaceholderScreen";
 import { Colors } from "../constants/colors";
 
@@ -78,7 +79,7 @@ export default function BottomTabs() {
       />
       <Tab.Screen
         name="Portfolio"
-        children={() => <PlaceholderScreen title="Portfolio" />}
+        component={PortfolioScreen}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <Ionicons

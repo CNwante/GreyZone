@@ -19,6 +19,9 @@ export const Colors = {
   // Warning/Alert (for notifications)
   warning: "#FFB800",
 
+  // Chart-specific colors
+  purple: "#9945FF", // For Solana, pie charts, etc.
+
   // Background
   background: "#0D0D14",
   backgroundCard: "#1A1A24",
@@ -40,5 +43,15 @@ export const Colors = {
   // Transparent overlays
   overlay: "rgba(0, 0, 0, 0.7)",
 } as const;
+
+// Chart color palette (for pie charts, bar charts, etc.)
+export const ChartColors = [
+  Colors.primary, // #246BFD - Blue (Bitcoin)
+  Colors.success, // #00D084 - Green (Ethereum)
+  Colors.purple, // #9945FF - Purple (Solana)
+  Colors.warning, // #FFB800 - Orange (Others)
+  Colors.error, // #FF4757 - Red
+  Colors.successLight, // #00E890 - Light Green
+] as const;
 
 export type ColorKey = keyof typeof Colors;
