@@ -96,23 +96,19 @@ export default function HomeScreen() {
 
   // Quick Actions Handlers
   const handleSendPress = () => {
-    console.log("Send pressed");
-    // TODO: Navigate to Send screen in future
+    navigation.navigate("SendCrypto");
   };
 
   const handleReceivePress = () => {
-    console.log("Receive pressed");
-    // TODO: Navigate to Receive screen in future
+    navigation.navigate("ReceiveCrypto");
   };
 
   const handleSwapPress = () => {
-    console.log("Swap pressed");
-    // TODO: Navigate to Swap screen in future
+    navigation.navigate("SwapCrypto");
   };
 
   const handleBuyPress = () => {
-    console.log("Buy pressed");
-    // TODO: Navigate to Buy screen in future
+    navigation.navigate("BuyCrypto");
   };
 
   // AI Insights Handlers

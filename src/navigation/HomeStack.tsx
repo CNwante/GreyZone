@@ -6,6 +6,10 @@ import EmptyHomeScreen from "../screens/EmptyHomeScreen";
 import CoinDetailScreen from "../screens/CoinDetailScreen";
 import MarketDiscoveryScreen from "../screens/MarketDiscoveryScreen";
 import NotificationsScreen from "../screens/NotificationsScreen";
+import SendCryptoScreen from "../screens/SendCryptoScreen";
+import ReceiveCryptoScreen from "../screens/ReceiveCryptoScreen";
+import SwapScreen from "../screens/SwapScreen";
+import BuyCryptoScreen from "../screens/BuyCryptoScreen";
 import { Colors } from "../constants/colors";
 
 const Stack = createNativeStackNavigator<HomeStackParamList>();
@@ -63,6 +67,31 @@ export default function HomeStack() {
         options={{
           headerShown: false,
         }}
+      />
+
+      {/* Wallet Screens */}
+      <Stack.Screen
+        name="SendCrypto"
+        component={SendCryptoScreen}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="ReceiveCrypto"
+        component={ReceiveCryptoScreen}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="SwapCrypto"
+        component={SwapScreen}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="BuyCrypto"
+        component={BuyCryptoScreen}
+        options={{ headerShown: false }}
       />
 
       {/* TODO: Additional screens will be added in later phases:

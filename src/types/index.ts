@@ -117,6 +117,11 @@ export type HomeStackParamList = {
   MarketDiscovery: undefined;
   Notifications: undefined;
   AIInsightDetail: { insightId: string };
+  // Wallet screens
+  SendCrypto: undefined;
+  ReceiveCrypto: undefined;
+  SwapCrypto: undefined;
+  BuyCrypto: undefined;
 };
 
 // ============================================================================
